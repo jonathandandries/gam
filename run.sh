@@ -1,9 +1,13 @@
 #!/bin/sh
 
-#  -e DISPLAY=$(docker-machine inspect default --format={{.Driver.HostOnlyCIDR}} | cut -d'/' -f1):0 \
-
+GAM_DIR=~/.gam
+if [[ "$(expr substr $(uname -s) 1 10)" =~ MINGW(32|64)_NT ]]; then
+    # Windows docker machine
+    GAM_DIR="/c/Users/$(whoami)/.gam"
+fi
 docker run -it --rm \
-  -v $(pwd)/client_secrets.json:/gam/GAM-3.63/src/client_secrets.json \
-  -v $(pwd)/oauth2service.json:/gam/GAM-3.63/src/oauth2service.json \
+  -v "${GAM_DIR}"/client_secrets.json:/gam/GAM-3.63/src/client_secrets.json \
+  -v "${GAM_DIR}"/oauth2service.json:/gam/GAM-3.63/src/oauth2service.json \
+  -v "${GAM_DIR}"/oauth2.txt:/gam/GAM-3.63/src/oauth2.txt \
   --name gam \
-  repo.cad.ao.dcn/gam
+  jonathandandries/gam $@

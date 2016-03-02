@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build -t repo.cad.ao.dcn/gam .
+docker build -t jonathandandries/gam .
