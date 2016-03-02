@@ -10,7 +10,12 @@ RUN apk add --no-cache --virtual=build-dependencies \
     ca-certificates \
     tar
 
-RUN curl -L https://github.com/jay0lee/GAM/archive/v3.63.tar.gz | tar -zx
+RUN mkdir /gam \
+  && curl -L https://github.com/jay0lee/GAM/archive/v3.63.tar.gz | tar -zxC /gam \
+  && touch /gam/GAM-3.63/src/nobrowser.txt \
+  && chmod -R 777 /gam \
+  && echo 'python /gam/GAM-3.63/src/gam.py $@' > /usr/bin/gam \
+  && chmod 777 /usr/bin/gam
 
 
 #ENTRYPOINT exec bash -c "source $HOME/.bashrc ; \
