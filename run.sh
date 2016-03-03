@@ -1,7 +1,7 @@
 #!/bin/sh
 
 GAM_DIR=~/.gam
-if [[ "$(expr substr $(uname -s) 1 10)" =~ MINGW(32|64)_NT ]]; then
+if [[ "$(uname -s)" =~ MINGW(32|64)_NT ]]; then
     # Windows docker machine
     GAM_DIR="/c/Users/$(whoami)/.gam"
 fi
